@@ -1,6 +1,12 @@
 {
   "name": "speedtest-electron",
   "version": "0.5.0",
+  "email": "Ruben Harutyunyan <harutyunyan.ruben@gmail.com> (https://vagr9k.me)",
+  "author": {
+    "name": "Ruben Harutyunyan",
+    "email": "harutyunyan.ruben@gmail.com",
+    "url": "https://vagr9k.me"
+  },
   "description": "Plots a chart and shows the statistics of the download progress. Makes HTTP/HTTPS GET requests to retrieve a remote URI",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -81,7 +87,7 @@
     "linux": {
       "target": [
         "deb",
-        "rpm",
+        "pacman",
         "snap",
         "AppImage"
       ],
@@ -185,7 +191,7 @@
     "devtron": "^1.4.0",
     "electron-debug": "^2.0.0",
     "electron-log": "^2.2.17",
-    "electron-updater": "^3.2.3",
+    "electron-updater": "^4.0.6",
     "history": "^4.7.2",
     "office-ui-fabric-react": "^7.4.2",
     "react": "^16.8.6",
