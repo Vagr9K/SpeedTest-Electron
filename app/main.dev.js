@@ -9,33 +9,34 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  *
  */
-import { app, BrowserWindow } from "electron";
-import log from "electron-log";
+import { app, BrowserWindow } from 'electron';
+import log from 'electron-log';
+import Downloader from './backend/downloader';
 
 export default class AppUpdater {
   constructor() {
-    log.transports.file.level = "info";
+    log.transports.file.level = 'info';
   }
 }
 
 let mainWindow = null;
 
-if (process.env.NODE_ENV === "production") {
-  const sourceMapSupport = require("source-map-support");
+if (process.env.NODE_ENV === 'production') {
+  const sourceMapSupport = require('source-map-support');
   sourceMapSupport.install();
 }
 
 if (
-  process.env.NODE_ENV === "development" ||
-  process.env.DEBUG_PROD === "true"
+  process.env.NODE_ENV === 'development' ||
+  process.env.DEBUG_PROD === 'true'
 ) {
-  require("electron-debug")();
+  require('electron-debug')();
 }
 
 const installExtensions = async () => {
-  const installer = require("electron-devtools-installer");
+  const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ["REACT_DEVELOPER_TOOLS", "REDUX_DEVTOOLS"];
+  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
 
   return Promise.all(
     extensions.map(name => installer.default(installer[name], forceDownload))
@@ -46,18 +47,18 @@ const installExtensions = async () => {
  * Add event listeners...
  */
 
-app.on("window-all-closed", () => {
+app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
-  if (process.platform !== "darwin") {
+  if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-app.on("ready", async () => {
+app.on('ready', async () => {
   if (
-    process.env.NODE_ENV === "development" ||
-    process.env.DEBUG_PROD === "true"
+    process.env.NODE_ENV === 'development' ||
+    process.env.DEBUG_PROD === 'true'
   ) {
     await installExtensions();
   }
@@ -72,7 +73,7 @@ app.on("ready", async () => {
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
-  mainWindow.webContents.on("did-finish-load", () => {
+  mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
@@ -84,7 +85,11 @@ app.on("ready", async () => {
     }
   });
 
-  mainWindow.on("closed", () => {
+  mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  // Initialize a Downloader that will be recieving benchmark requests
+  const downloader = new Downloader(mainWindow.webContents);
+  downloader.init();
 });
