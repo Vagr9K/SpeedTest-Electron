@@ -38,7 +38,8 @@
       "error",
       { "extensions": [".js", ".jsx"] }
     ],
-    "react/prefer-stateless-function": "off"
+    "react/prefer-stateless-function": "off",
+    "react/prop-types": "off"
   },
   "plugins": ["import", "promise", "compat", "react"],
   "settings": {

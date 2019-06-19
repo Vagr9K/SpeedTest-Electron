@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  margin: 0;
+  display: flex;
+}
+
+body > div,
+#root {
+  min-height: 100vh !important;
+  min-width: 100% !important;
+  display: flex;
+}

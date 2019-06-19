@@ -1,0 +1,13 @@
+.userInputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.userInputContainer > button {
+  height: 32px;
+}
+
+.urlUserInput {
+  flex-grow: 1;
+}

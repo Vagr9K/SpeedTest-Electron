@@ -1,25 +1,26 @@
-import React from "react";
-import { render } from "react-dom";
-import { AppContainer } from "react-hot-loader";
-import { createHashHistory } from "history";
-import Root from "./containers/Root";
+import React from 'react';
+import { render } from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
+import Root from './containers/Root';
+import './app.global.css';
 
 render(
   <AppContainer>
-    <Root history={createHashHistory} />
+    <Root />
   </AppContainer>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 if (module.hot) {
-  module.hot.accept("./containers/Root", () => {
+  module.hot.accept('./containers/Root', () => {
     // eslint-disable-next-line global-require
-    const NextRoot = require("./containers/Root").default;
+    const NextRoot = require('./containers/Root').default;
+    console.log(NextRoot);
     render(
       <AppContainer>
-        <NextRoot history={createHashHistory} />
+        <NextRoot />
       </AppContainer>,
-      document.getElementById("root")
+      document.getElementById('root')
     );
   });
 }
