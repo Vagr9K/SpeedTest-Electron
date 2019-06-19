@@ -69,6 +69,9 @@ app.on('ready', async () => {
     height: 728
   });
 
+  // Remove menubar
+  mainWindow.setMenu(null);
+
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   // @TODO: Use 'ready-to-show' event
