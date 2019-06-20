@@ -9,7 +9,7 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  *
  */
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 import log from 'electron-log';
 import Downloader from './backend/downloader';
 
@@ -63,14 +63,14 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
+  // Remove menubar
+  Menu.setApplicationMenu(null); // https://github.com/electron/electron/issues/16521
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728
   });
-
-  // Remove menubar
-  mainWindow.setMenu(null);
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
