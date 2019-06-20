@@ -20,7 +20,7 @@ export default class Instructions extends Component {
     return (
       <div className={styles.instructions}>
         <p>Input a remote resource URL to start the speedtest</p>
-        <p>You can use on of the following examples:</p>
+        <p>You can use one of the following examples:</p>
         {sampleURLs.map(url => (
           <a href="#" key={url} onClick={clickHandler(url)}>
             {url}
