@@ -76,7 +76,17 @@ export default class Root extends Component {
   };
 
   startBenchmark = () => {
-    this.setState({ appState: 'DOWNLOADING' });
+    // Set state as DOWNLOADING and reset previous stats
+    this.setState({
+      appState: 'DOWNLOADING',
+      downloadStats: {
+        startTime: 0,
+        elapsedTime: 0,
+        downloadSize: 0,
+        avgSpeed: 0,
+        history: []
+      }
+    });
     // eslint-disable-next-line react/destructuring-assignment
     ipcRenderer.send(DOWNLOADER_CHANNEL, 'START', this.state.downloadURL);
   };
